@@ -1,0 +1,153 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Orange Play School design system.
+ * Cream ground, orange warmth, meadow green figures, plum for the serious register.
+ * All colors in oklch. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --radius-card: 14px;
+  --radius-frame: 24px;
+
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-meadow: var(--meadow);
+  --color-meadow-foreground: var(--meadow-foreground);
+  --color-meadow-soft: var(--meadow-soft);
+  --color-plum: var(--plum);
+  --color-plum-foreground: var(--plum-foreground);
+  --color-sky: var(--sky);
+  --color-butter: var(--butter);
+  --color-blush: var(--blush);
+  --color-ink: var(--ink);
+
+  --shadow-soft: 0 18px 40px -24px color-mix(in oklab, var(--ink) 45%, transparent);
+  --shadow-lift: 0 26px 60px -30px color-mix(in oklab, var(--ink) 55%, transparent);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --cream: oklch(0.973 0.017 84.2);
+  --cream-deep: oklch(0.944 0.028 82.5);
+  --ink: oklch(0.28 0.035 55);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(0.995 0.006 90);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.995 0.006 90);
+  --popover-foreground: var(--ink);
+
+  --primary: oklch(0.702 0.176 47.5);
+  --primary-foreground: oklch(0.995 0.008 85);
+  --secondary: var(--cream-deep);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.955 0.019 83);
+  --muted-foreground: oklch(0.505 0.031 60);
+  --accent: oklch(0.925 0.055 88);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.211 25.5);
+  --destructive-foreground: oklch(0.99 0.005 90);
+  --border: oklch(0.895 0.023 80);
+  --input: oklch(0.895 0.023 80);
+  --ring: oklch(0.702 0.176 47.5);
+
+  --meadow: oklch(0.508 0.104 152);
+  --meadow-foreground: oklch(0.985 0.012 140);
+  --meadow-soft: oklch(0.905 0.049 150);
+  --plum: oklch(0.372 0.093 328);
+  --plum-foreground: oklch(0.98 0.012 330);
+  --sky: oklch(0.855 0.061 234);
+  --butter: oklch(0.906 0.098 92);
+  --blush: oklch(0.884 0.062 26);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+}
+
+@utility display-xl {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 6vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+@utility display-lg {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+@utility eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@utility frame-photo {
+  border-radius: var(--radius-frame);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+@utility section-pad {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+}
