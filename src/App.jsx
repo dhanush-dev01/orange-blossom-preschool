@@ -12,6 +12,7 @@ import Expansion from "@/pages/Expansion";
 import ForABetterWorld from "@/pages/ForABetterWorld";
 import Journal from "@/pages/Journal";
 import Terms from "@/pages/Terms";
+import CareAndSafety from "@/pages/CareAndSafety";
 import NotFound from "@/pages/NotFound";
 
 // TanStack Router's scrollRestoration replacement: jump to top on every path change.
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/for-a-better-world" element={<ForABetterWorld />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/care-and-safety" element={<CareAndSafety />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

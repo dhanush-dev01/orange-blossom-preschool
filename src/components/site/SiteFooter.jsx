@@ -13,6 +13,7 @@ const columns = [
   {
     title: "The group",
     links: [
+      { to: "/care-and-safety", label: "Care & Safety" },
       { to: "/sambhavam", label: "Sambhavam" },
       { to: "/expansion", label: "Expansion" },
       { to: "/careers", label: "Careers" },
