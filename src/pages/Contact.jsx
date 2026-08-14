@@ -12,7 +12,21 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { useDocumentTitle } from "@/lib/use-document-title";
+
+// Fix Leaflet default marker asset URLs under Vite's bundler.
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -29,6 +43,7 @@ const campuses = [
     address:
       "12, Brookefield Main Road, Kundalahalli, Bangalore, Karnataka 560037",
     mapsQuery: "Brookefield+Main+Road+Kundalahalli+Bangalore",
+    coords: [12.9698, 77.7215],
     phone: "+91 80 4700 0111",
     whatsapp: "+91 98860 00111",
     email: "brookefield@orangeplayschool.in",
@@ -46,6 +61,7 @@ const campuses = [
     address:
       "45, Race Course Road, R.S. Puram, Coimbatore, Tamil Nadu 641002",
     mapsQuery: "Race+Course+Road+RS+Puram+Coimbatore",
+    coords: [11.0056, 76.9540],
     phone: "+91 422 470 0222",
     whatsapp: "+91 98430 00222",
     email: "coimbatore@orangeplayschool.in",
@@ -63,6 +79,7 @@ const campuses = [
     address:
       "Plot 22, Whitefields Road, Kondapur, Hyderabad, Telangana 500084",
     mapsQuery: "Whitefields+Road+Kondapur+Hyderabad",
+    coords: [17.4650, 78.3660],
     phone: "+91 40 4700 0333",
     whatsapp: "+91 90000 00333",
     email: "hyderabad@orangeplayschool.in",
@@ -81,6 +98,7 @@ const campuses = [
     address:
       "7, HAL 2nd Stage, Indiranagar, Bangalore, Karnataka 560008",
     mapsQuery: "HAL+2nd+Stage+Indiranagar+Bangalore",
+    coords: [12.9721, 77.6412],
     phone: "+91 80 4700 0444",
     whatsapp: "+91 98860 00444",
     email: "sambhavam@orangeplayschool.in",
@@ -552,10 +570,8 @@ function CampusCard({ campus }) {
 }
 
 function MapSection() {
-  // OpenStreetMap embed — no API key required, non-tracking.
-  // Bounding box loosely covers South India so all campuses fit in the frame.
-  const bbox = "72.5,10.0,80.5,17.5";
-  const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik`;
+  // Frame that covers all campuses (Bangalore ↔ Hyderabad ↔ Coimbatore).
+  const bounds = campuses.map((c) => c.coords);
   const openMapsUrl =
     "https://www.google.com/maps/search/?api=1&query=Orange+Play+School+India";
   return (
@@ -579,13 +595,38 @@ function MapSection() {
           </a>
         </div>
         <div className="mt-9 overflow-hidden rounded-[--radius-frame] border border-border shadow-lift">
-          <iframe
-            title="Map of Orange Play School campuses"
-            src={mapSrc}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="h-[480px] w-full border-0"
-          />
+          <MapContainer
+            bounds={bounds}
+            boundsOptions={{ padding: [40, 40] }}
+            scrollWheelZoom={false}
+            style={{ height: 480, width: "100%" }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {campuses.map((c) => {
+              const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${c.mapsQuery}`;
+              return (
+                <Marker key={c.id} position={c.coords}>
+                  <Popup>
+                    <div className="space-y-1">
+                      <p className="font-serif text-base font-semibold">{c.name}</p>
+                      <p className="text-xs text-muted-foreground">{c.address}</p>
+                      <a
+                        href={directionsUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-primary"
+                      >
+                        Directions →
+                      </a>
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
         </div>
       </div>
     </section>
