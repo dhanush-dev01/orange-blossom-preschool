@@ -1,24 +1,29 @@
-import { Bird, Blocks, Rabbit, Baby, PawPrint, Wind } from "lucide-react";
-
-const icons = {
-  bear: PawPrint,
-  owl: Bird,
-  elephant: Baby,
-  bunny: Rabbit,
-  blocks: Blocks,
-  kite: Wind,
+// Map the abstract emblem name used in data/ to the actual illustrated icon
+// shipped in /public/brand/icons/ (from the Brand Book icon family).
+const iconFile = {
+  bear: "bear",
+  owl: "owl",
+  elephant: "elephant",
+  bunny: "rabbit",
+  blocks: "blocks",
+  kite: "kite",
 };
 
 export function ProgrammeEmblem({ emblem, tint, size = "md" }) {
-  const Icon = icons[emblem];
+  const file = iconFile[emblem] ?? emblem;
+  const box = size === "lg" ? "size-16" : "size-14";
+  const glyph = size === "lg" ? "size-10" : "size-9";
   return (
     <span
       aria-hidden="true"
-      className={`grid place-items-center rounded-full ${tint} ${
-        size === "lg" ? "size-16" : "size-14"
-      }`}
+      className={`grid place-items-center rounded-full ${tint} ${box}`}
     >
-      <Icon className={size === "lg" ? "size-8" : "size-7"} strokeWidth={1.6} />
+      <img
+        src={`/brand/icons/${file}.svg`}
+        alt=""
+        className={`${glyph} object-contain`}
+        loading="lazy"
+      />
     </span>
   );
 }

@@ -18,14 +18,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4">
-        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground font-serif text-lg font-bold">
-            O
-          </span>
-          <span className="font-serif text-xl font-semibold tracking-tight">Orange</span>
-          <span className="hidden text-xs font-semibold text-muted-foreground sm:inline">
-            Bangalore
-          </span>
+        <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
+          <img
+            src="/brand/orange-group-horizontal.png"
+            alt="Orange Group of Schools"
+            className="h-14 w-auto sm:h-16 lg:h-20"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">

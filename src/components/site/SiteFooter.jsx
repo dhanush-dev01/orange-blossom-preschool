@@ -31,14 +31,28 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-cream-deep">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
         <div>
-          <div className="flex items-center gap-2.5">
-            <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground font-serif text-lg font-bold">
-              O
-            </span>
-            <span className="font-serif text-xl font-semibold">Orange Group of Schools</span>
+          <div className="flex items-center gap-3">
+            <img
+              src="/brand/orange-group.svg"
+              alt=""
+              aria-hidden="true"
+              className="size-11 shrink-0"
+            />
+            <div className="flex flex-col leading-tight">
+              <span className="font-serif text-xl font-semibold">Orange Group of Schools</span>
+              <span className="text-[0.7rem] font-bold uppercase tracking-[0.14em] text-meadow">
+                One symbol · A hundred schools · One promise
+              </span>
+            </div>
           </div>
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             Every child known by name. Every day worth remembering.
+          </p>
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            Orange International Preschool &amp; Daycare
+            <span className="mt-1 block text-[0.65rem] font-bold normal-case tracking-normal text-meadow">
+              Part of Orange Group of Schools
+            </span>
           </p>
         </div>
 
