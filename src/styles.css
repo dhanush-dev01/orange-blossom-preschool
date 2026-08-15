@@ -5,9 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Orange Play School design system.
- * Cream ground, orange warmth, meadow green figures, plum for the serious register.
- * All colors in oklch. Never hardcode colors in components.
+ * Orange Group design system.
+ * Blossom is the unifying primary (energy, warmth, optimism).
+ * Meadow is the corporate voice — calm, grounded, premium.
+ * Sunset & Sky are accents. Support colours (watermelon, rose, berry, plum)
+ * are for child-facing surfaces and campus wayfinding only — never for logos
+ * or corporate communications. Cream is the warm-paper ground; Ink is body text.
+ * Palette locked to the Brand Book master swatches. Never hardcode colours in components.
  */
 
 @theme inline {
@@ -21,7 +25,7 @@
   --radius-card: 14px;
   --radius-frame: 24px;
 
-  --font-serif: "Fraunces", Georgia, serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
@@ -47,13 +51,20 @@
 
   --color-cream: var(--cream);
   --color-cream-deep: var(--cream-deep);
+  --color-blossom: var(--blossom);
+  --color-blossom-soft: var(--blossom-soft);
+  --color-blossom-foreground: var(--blossom-foreground);
   --color-meadow: var(--meadow);
   --color-meadow-foreground: var(--meadow-foreground);
   --color-meadow-soft: var(--meadow-soft);
   --color-plum: var(--plum);
   --color-plum-foreground: var(--plum-foreground);
   --color-sky: var(--sky);
+  --color-sunset: var(--sunset);
   --color-butter: var(--butter);
+  --color-watermelon: var(--watermelon);
+  --color-rose: var(--rose);
+  --color-berry: var(--berry);
   --color-blush: var(--blush);
   --color-ink: var(--ink);
 
@@ -64,39 +75,55 @@
 :root {
   --radius: 0.875rem;
 
-  --cream: oklch(0.973 0.017 84.2);
-  --cream-deep: oklch(0.944 0.028 82.5);
-  --ink: oklch(0.28 0.035 55);
+  /* Brand Book master palette (hex from the colour system spread) */
+  --cream: #FBF9F8;         /* primary background — warm paper */
+  --cream-deep: #F3ECE5;    /* slightly deeper cream for banded sections */
+  --ink: #4A3B44;           /* body text — warm near-black */
 
+  --blossom: #D98C97;       /* PRIMARY — the unifying colour */
+  --blossom-soft: #F1D5D9;  /* tinted blossom for chips / soft backgrounds */
+  --blossom-foreground: #FBF9F8;
+
+  --meadow: #5E7A64;        /* CORPORATE voice */
+  --meadow-foreground: #FBF9F8;
+  --meadow-soft: #DCE4DE;   /* tinted meadow for chips / soft backgrounds */
+
+  --sunset: #EBB870;        /* ACCENT — gold */
+  --sky: #9FBBD0;           /* ACCENT — sky blue */
+
+  /* Support palette — child touchpoints, illustration, campus wayfinding only.
+     Never for logos or corporate communications. */
+  --watermelon: #E8888C;
+  --rose: #EBA5A5;
+  --berry: #D5A0A8;
+  --plum: #6E5460;
+  --plum-foreground: #FBF9F8;
+
+  /* Semantic slots (shadcn / tailwind-style) */
   --background: var(--cream);
   --foreground: var(--ink);
-  --card: oklch(0.995 0.006 90);
+  --card: #FFFFFF;
   --card-foreground: var(--ink);
-  --popover: oklch(0.995 0.006 90);
+  --popover: #FFFFFF;
   --popover-foreground: var(--ink);
 
-  --primary: oklch(0.702 0.176 47.5);
-  --primary-foreground: oklch(0.995 0.008 85);
+  --primary: var(--blossom);
+  --primary-foreground: var(--blossom-foreground);
   --secondary: var(--cream-deep);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.955 0.019 83);
-  --muted-foreground: oklch(0.505 0.031 60);
-  --accent: oklch(0.925 0.055 88);
+  --muted: #F1EAE4;
+  --muted-foreground: #7A6B70;
+  --accent: var(--sunset);
   --accent-foreground: var(--ink);
-  --destructive: oklch(0.577 0.211 25.5);
-  --destructive-foreground: oklch(0.99 0.005 90);
-  --border: oklch(0.895 0.023 80);
-  --input: oklch(0.895 0.023 80);
-  --ring: oklch(0.702 0.176 47.5);
+  --destructive: #B4444A;
+  --destructive-foreground: #FBF9F8;
+  --border: #E7DED7;
+  --input: #E7DED7;
+  --ring: var(--blossom);
 
-  --meadow: oklch(0.508 0.104 152);
-  --meadow-foreground: oklch(0.985 0.012 140);
-  --meadow-soft: oklch(0.905 0.049 150);
-  --plum: oklch(0.372 0.093 328);
-  --plum-foreground: oklch(0.98 0.012 330);
-  --sky: oklch(0.855 0.061 234);
-  --butter: oklch(0.906 0.098 92);
-  --blush: oklch(0.884 0.062 26);
+  /* Legacy aliases kept so existing utilities keep working */
+  --butter: var(--sunset);
+  --blush: var(--rose);
 }
 
 @layer base {
