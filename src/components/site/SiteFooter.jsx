@@ -33,7 +33,7 @@ export function SiteFooter() {
         <div>
           <div className="flex items-center gap-3">
             <img
-              src="/brand/orange-group.svg"
+              src={`${import.meta.env.BASE_URL}brand/orange-group.svg`}
               alt=""
               aria-hidden="true"
               className="size-11 shrink-0"

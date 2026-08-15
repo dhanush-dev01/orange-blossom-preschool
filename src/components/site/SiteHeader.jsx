@@ -20,7 +20,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4">
         <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
           <img
-            src="/brand/orange-group-horizontal.png"
+            src={`${import.meta.env.BASE_URL}brand/orange-group-horizontal.png`}
             alt="Orange Group of Schools"
             className="h-14 w-auto sm:h-16 lg:h-20"
           />

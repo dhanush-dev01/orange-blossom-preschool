@@ -19,7 +19,7 @@ export function ProgrammeEmblem({ emblem, tint, size = "md" }) {
       className={`grid place-items-center rounded-full ${tint} ${box}`}
     >
       <img
-        src={`/brand/icons/${file}.svg`}
+        src={`${import.meta.env.BASE_URL}brand/icons/${file}.svg`}
         alt=""
         className={`${glyph} object-contain`}
         loading="lazy"

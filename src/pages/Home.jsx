@@ -159,7 +159,7 @@ function IconStrip() {
           {dayIcons.map((d) => (
             <li key={d.file} className="flex flex-col items-center gap-2">
               <img
-                src={`/brand/icons/${d.file}.svg`}
+                src={`${import.meta.env.BASE_URL}brand/icons/${d.file}.svg`}
                 alt=""
                 className="size-12 object-contain sm:size-14"
                 loading="lazy"
