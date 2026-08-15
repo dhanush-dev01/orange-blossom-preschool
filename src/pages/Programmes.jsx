@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Download, Check } from "lucide-react";
 import { programmes, feeSheetPath } from "@/data/programmes";
 import { ProgrammeEmblem } from "@/components/site/ProgrammeEmblem";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 export default function Programmes() {
-  useDocumentTitle("Programmes for 6 months to 6 years | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "Programmes — Infant Care to UKG | Orange",
+    description:
+      "Six programmes from 6 months to 6 years, each with its own space, ratio and curriculum. Find the right room for your child.",
+  });
   return (
     <main>
       <Intro />

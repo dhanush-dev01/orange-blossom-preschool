@@ -9,17 +9,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 export default function ProgrammeDetail() {
   const { programmeId } = useParams();
   const programme = programmes.find((p) => p.id === programmeId);
 
-  useDocumentTitle(
-    programme
-      ? `${programme.name} (${programme.age}) | Orange Play School Bangalore`
-      : "Programme not found | Orange Play School",
-  );
+  useDocumentMeta({
+    title: programme
+      ? `${programme.name} (${programme.age}) | Orange`
+      : "Programme not found | Orange",
+    description: programme
+      ? `${programme.name} programme for children aged ${programme.age}. ${programme.promise ?? ""}`.trim()
+      : undefined,
+  });
 
   if (!programme) return <Navigate to="/programmes" replace />;
 

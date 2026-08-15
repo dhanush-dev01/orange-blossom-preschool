@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import Home from "@/pages/Home";
 import Programmes from "@/pages/Programmes";
 import ProgrammeDetail from "@/pages/ProgrammeDetail";
@@ -12,15 +13,24 @@ import Expansion from "@/pages/Expansion";
 import ForABetterWorld from "@/pages/ForABetterWorld";
 import Journal from "@/pages/Journal";
 import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import CareAndSafety from "@/pages/CareAndSafety";
 import NotFound from "@/pages/NotFound";
 
-// TanStack Router's scrollRestoration replacement: jump to top on every path change.
+// TanStack Router's scrollRestoration replacement: jump to top on every
+// path change, but honour hash anchors like /contact#brookefield.
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 
@@ -41,11 +51,13 @@ export default function App() {
           <Route path="/for-a-better-world" element={<ForABetterWorld />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/care-and-safety" element={<CareAndSafety />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <SiteFooter />
+      <WhatsAppFloat />
     </div>
   );
 }

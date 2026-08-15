@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Check, Syringe, Backpack, TreeDeciduous, GraduationCap } from "lucide-react";
 import { programmes } from "@/data/programmes";
 import { ProgrammeEmblem } from "@/components/site/ProgrammeEmblem";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -60,7 +60,11 @@ const betterWorld = [
 ];
 
 export default function Home() {
-  useDocumentTitle("Orange Play School Bangalore | Preschool, Daycare & Special Education");
+  useDocumentMeta({
+    title: "Orange Group of Schools — Preschool & Daycare",
+    description:
+      "Preschool, daycare and special education from 6 months to 6 years. Nine years of operations. Book a campus visit.",
+  });
   return (
     <main>
       <Hero />

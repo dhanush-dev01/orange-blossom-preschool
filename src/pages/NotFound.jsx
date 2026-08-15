@@ -1,25 +1,39 @@
 import { Link } from "react-router-dom";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { ArrowRight, Compass } from "lucide-react";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 export default function NotFound() {
-  useDocumentTitle("Page not found | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "Page not found | Orange Group of Schools",
+    description:
+      "This page has wandered off. Head back to the classroom — or browse our programmes.",
+  });
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <main className="section-pad">
+      <div className="mx-auto grid max-w-4xl gap-8 px-5 text-center">
+        <div className="mx-auto grid size-16 place-items-center rounded-full bg-meadow-soft text-meadow">
+          <Compass className="size-7" aria-hidden />
+        </div>
+        <p className="eyebrow text-meadow">404</p>
+        <h1 className="display-xl">This page has wandered off</h1>
+        <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground">
+          Let&rsquo;s get you back to the classroom.
         </p>
-        <div className="mt-6">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
           >
-            Go home
+            Go home <ArrowRight className="size-4" />
+          </Link>
+          <Link
+            to="/programmes"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-sm font-bold shadow-soft transition-transform hover:-translate-y-0.5"
+          >
+            See our programmes <ArrowRight className="size-4" />
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

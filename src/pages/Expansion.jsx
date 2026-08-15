@@ -13,7 +13,7 @@ import {
   ShieldCheck,
   Sprout,
 } from "lucide-react";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -76,7 +76,12 @@ const standards = [
 ];
 
 export default function Expansion() {
-  useDocumentTitle("Expansion & Partners | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "Expansion — A model built to scale | Orange Group",
+    description:
+      "Nine audited years, a repeatable campus model, and a plan to grow across South India. For partners, landlords and investors.",
+    image: modelPhoto,
+  });
   return (
     <main>
       <Hero />

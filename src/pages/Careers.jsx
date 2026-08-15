@@ -14,7 +14,7 @@ import {
   Upload,
   Users,
 } from "lucide-react";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -83,7 +83,12 @@ const hiringSteps = [
 ];
 
 export default function Careers() {
-  useDocumentTitle("Careers & Teacher Training | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "Careers & Teacher Training Academy | Orange",
+    description:
+      "We train our own teachers. Open roles across campuses, plus our early-years training academy.",
+    image: heroPhoto,
+  });
   return (
     <main>
       <Hero />

@@ -18,7 +18,7 @@ import "leaflet/dist/leaflet.css";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 // Fix Leaflet default marker asset URLs under Vite's bundler.
 delete L.Icon.Default.prototype._getIconUrl;
@@ -170,7 +170,12 @@ const socials = [
 ];
 
 export default function Contact() {
-  useDocumentTitle("Contact & Campus Visits | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "Contact & Campus Visits | Orange Schools",
+    description:
+      "Campus addresses, hours and direct lines. Book a weekday visit and see a real classroom.",
+    image: heroPhoto,
+  });
   return (
     <main>
       <Hero />
@@ -467,7 +472,10 @@ function CampusCard({ campus }) {
   const telHref = `tel:${campus.phone.replace(/\s+/g, "")}`;
   const waHref = `https://wa.me/${campus.whatsapp.replace(/[^\d]/g, "")}`;
   return (
-    <article className="flex flex-col overflow-hidden rounded-[--radius-frame] border border-border bg-card shadow-soft">
+    <article
+      id={campus.id}
+      className="flex scroll-mt-24 flex-col overflow-hidden rounded-[--radius-frame] border border-border bg-card shadow-soft"
+    >
       <figure className="relative">
         <img
           src={campus.photo}

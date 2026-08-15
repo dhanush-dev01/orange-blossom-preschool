@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Download } from "lucide-react";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -41,7 +41,12 @@ const teachers = [
 ];
 
 export default function CareAndSafety() {
-  useDocumentTitle("Care & Safety at Orange | Bangalore Play School");
+  useDocumentMeta({
+    title: "Care, Safety & Nutrition | Orange Schools",
+    description:
+      "Nurse on campus, nutritionist-designed menus, parent CCTV access, safe play areas. Every standard we hold, set out in full.",
+    image: heroPhoto,
+  });
   return (
     <main>
       <Hero />

@@ -11,7 +11,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { useDocumentTitle } from "@/lib/use-document-title";
+import { useDocumentMeta } from "@/lib/use-document-meta";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -135,7 +135,12 @@ const articles = [
 ];
 
 export default function ForABetterWorld() {
-  useDocumentTitle("For a Better World | Orange Play School Bangalore");
+  useDocumentMeta({
+    title: "For a Better World | Orange Group of Schools",
+    description:
+      "Insulin sponsorship, school bags for unreached villages, trees with every campus, and teaching careers for tribal young women.",
+    image: heroPhoto,
+  });
   return (
     <main>
       <Hero />
