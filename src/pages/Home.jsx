@@ -69,7 +69,6 @@ export default function Home() {
     <main>
       <Hero />
       <ProofStrip />
-      <IconStrip />
       <ChooseByAge />
       <WhyOrange />
       <Sambhavam />
@@ -133,43 +132,6 @@ function ProofStrip() {
             <p className="mt-1 text-sm leading-snug text-muted-foreground">{s.label}</p>
           </div>
         ))}
-      </div>
-    </section>
-  );
-}
-
-const dayIcons = [
-  { file: "sun", label: "Morning" },
-  { file: "backpack", label: "Arrival" },
-  { file: "blocks", label: "Play" },
-  { file: "apple", label: "Snack" },
-  { file: "crayons", label: "Making" },
-  { file: "lunchbox", label: "Lunch" },
-  { file: "rainbow", label: "Garden" },
-  { file: "owl", label: "Story" },
-  { file: "balloon", label: "Home" },
-];
-
-function IconStrip() {
-  return (
-    <section aria-hidden="true" className="border-b border-border/60 bg-background">
-      <div className="mx-auto max-w-6xl px-5 py-8">
-        <p className="eyebrow text-center text-meadow">A day in objects</p>
-        <ul className="mt-6 grid grid-cols-3 gap-y-6 sm:grid-cols-5 lg:grid-cols-9">
-          {dayIcons.map((d) => (
-            <li key={d.file} className="flex flex-col items-center gap-2">
-              <img
-                src={`${import.meta.env.BASE_URL}brand/icons/${d.file}.svg`}
-                alt=""
-                className="size-12 object-contain sm:size-14"
-                loading="lazy"
-              />
-              <span className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                {d.label}
-              </span>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

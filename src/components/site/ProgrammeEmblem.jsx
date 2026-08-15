@@ -11,12 +11,12 @@ const iconFile = {
 
 export function ProgrammeEmblem({ emblem, tint, size = "md" }) {
   const file = iconFile[emblem] ?? emblem;
-  const box = size === "lg" ? "size-16" : "size-14";
-  const glyph = size === "lg" ? "size-10" : "size-9";
+  const box = size === "lg" ? "size-24" : "size-20";
+  const glyph = size === "lg" ? "size-24" : "size-20";
   return (
     <span
       aria-hidden="true"
-      className={`grid place-items-center rounded-full ${tint} ${box}`}
+      className={`grid place-items-center ${box}`}
     >
       <img
         src={`${import.meta.env.BASE_URL}brand/icons/${file}.svg`}
