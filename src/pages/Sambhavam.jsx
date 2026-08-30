@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -12,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { useDocumentMeta } from "@/lib/use-document-meta";
+import { FormStatus, Honeypot, useWeb3Forms } from "@/lib/use-web3forms";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -377,7 +377,9 @@ function Field({ label, name, type = "text", required = true, placeholder, autoC
 }
 
 function NextStep() {
-  const [sent, setSent] = useState(false);
+  const { sent, setSent, submitting, error, handleSubmit } = useWeb3Forms({
+    subject: "Sambhavam assessment request",
+  });
   return (
     <section id="assessment" className="section-pad">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[1fr_1.3fr]">
@@ -418,11 +420,9 @@ function NextStep() {
         ) : (
           <form
             className="grid gap-4 rounded-[--radius-frame] border border-border bg-card p-6 shadow-lift sm:p-8 sm:grid-cols-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
+            onSubmit={handleSubmit}
           >
+            <Honeypot />
             <Field label="Parent name" name="s-name" placeholder="Your full name" autoComplete="name" />
             <Field label="Phone" name="s-phone" type="tel" placeholder="+91 98xxx xxxxx" autoComplete="tel" />
             <Field label="Email" name="s-email" type="email" placeholder="you@example.com" autoComplete="email" />
@@ -479,11 +479,13 @@ function NextStep() {
               </label>
             </div>
 
+            <FormStatus error={error} className="sm:col-span-2" />
             <button
               type="submit"
-              className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+              disabled={submitting}
+              className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Request an assessment <ArrowRight className="size-4" />
+              {submitting ? "Sending…" : "Request an assessment"} <ArrowRight className="size-4" />
             </button>
           </form>
         )}

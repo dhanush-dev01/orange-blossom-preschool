@@ -12,6 +12,7 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
+import { FormStatus, Honeypot, useWeb3Forms } from "@/lib/use-web3forms";
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -309,7 +310,9 @@ function EnquirySection() {
 }
 
 function EnquiryForm() {
-  const [sent, setSent] = useState(false);
+  const { sent, setSent, submitting, error, handleSubmit } = useWeb3Forms({
+    subject: "New admissions enquiry",
+  });
   const [whatsappSame, setWhatsappSame] = useState(true);
 
   if (sent) {
@@ -339,11 +342,9 @@ function EnquiryForm() {
   return (
     <form
       className="grid gap-4 rounded-[--radius-frame] border border-border bg-card p-6 shadow-lift sm:p-8 sm:grid-cols-2"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      onSubmit={handleSubmit}
     >
+      <Honeypot />
       <Field label="Parent name" name="parent-name" placeholder="Your full name" autoComplete="name" />
       <Field label="Phone" name="phone" type="tel" placeholder="+91 98xxx xxxxx" autoComplete="tel" />
 
@@ -438,11 +439,13 @@ function EnquiryForm() {
         </label>
       </div>
 
+      <FormStatus error={error} className="sm:col-span-2" />
       <button
         type="submit"
-        className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+        disabled={submitting}
+        className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Submit enquiry <ArrowRight className="size-4" />
+        {submitting ? "Sending…" : "Submit enquiry"} <ArrowRight className="size-4" />
       </button>
     </form>
   );

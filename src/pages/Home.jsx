@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check, Syringe, Backpack, TreeDeciduous, GraduationCap } from "lucide-react";
 import { programmes } from "@/data/programmes";
 import { ProgrammeEmblem } from "@/components/site/ProgrammeEmblem";
 import { useDocumentMeta } from "@/lib/use-document-meta";
+import { FormStatus, Honeypot, useWeb3Forms } from "@/lib/use-web3forms";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -352,7 +353,9 @@ function BetterWorld() {
 }
 
 function VisitUs() {
-  const [sent, setSent] = useState(false);
+  const { sent, submitting, error, handleSubmit } = useWeb3Forms({
+    subject: "Campus visit request — home page",
+  });
 
   return (
     <section className="section-pad" id="visit">
@@ -383,11 +386,9 @@ function VisitUs() {
           ) : (
             <form
               className="mt-8 grid gap-4 rounded-[--radius-frame] border border-border bg-card p-6 shadow-soft sm:grid-cols-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSent(true);
-              }}
+              onSubmit={handleSubmit}
             >
+              <Honeypot />
               <Field label="Parent name" name="name" placeholder="Your full name" />
               <Field label="Phone" name="phone" type="tel" placeholder="+91" />
               <Field label="Child's age" name="age" placeholder="e.g. 2 years 4 months" />
@@ -405,11 +406,13 @@ function VisitUs() {
                   <option>JP Nagar</option>
                 </select>
               </div>
+              <FormStatus error={error} className="sm:col-span-2" />
               <button
                 type="submit"
-                className="sm:col-span-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5"
+                disabled={submitting}
+                className="sm:col-span-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Book a campus visit
+                {submitting ? "Sending…" : "Book a campus visit"}
               </button>
             </form>
           )}

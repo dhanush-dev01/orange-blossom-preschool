@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -15,6 +14,7 @@ import {
   Users,
 } from "lucide-react";
 import { useDocumentMeta } from "@/lib/use-document-meta";
+import { FormStatus, Honeypot, useWeb3Forms } from "@/lib/use-web3forms";
 
 const img = (id, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -486,7 +486,9 @@ function Field({
 }
 
 function ApplicationForm() {
-  const [sent, setSent] = useState(false);
+  const { sent, setSent, submitting, error, handleSubmit } = useWeb3Forms({
+    subject: "New career / academy application",
+  });
   return (
     <section id="application" className="section-pad">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[1fr_1.4fr]">
@@ -525,11 +527,9 @@ function ApplicationForm() {
         ) : (
           <form
             className="grid gap-4 rounded-[--radius-frame] border border-border bg-card p-6 shadow-lift sm:p-8 sm:grid-cols-2"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
+            onSubmit={handleSubmit}
           >
+            <Honeypot />
             <Field label="Name" name="c-name" placeholder="Your full name" autoComplete="name" />
             <Field label="Phone" name="c-phone" type="tel" placeholder="+91 98xxx xxxxx" autoComplete="tel" />
             <Field label="Email" name="c-email" type="email" placeholder="you@example.com" autoComplete="email" />
@@ -618,11 +618,13 @@ function ApplicationForm() {
               />
             </div>
 
+            <FormStatus error={error} className="sm:col-span-2" />
             <button
               type="submit"
-              className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+              disabled={submitting}
+              className="sm:col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <Send className="size-4" /> Submit application
+              <Send className="size-4" /> {submitting ? "Sending…" : "Submit application"}
             </button>
           </form>
         )}

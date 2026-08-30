@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormStatus, Honeypot, useWeb3Forms } from "@/lib/use-web3forms";
 
 function Field({ label, name, type = "text", placeholder, defaultValue }) {
   return (
@@ -20,7 +20,11 @@ function Field({ label, name, type = "text", placeholder, defaultValue }) {
 }
 
 export function VisitForm({ programmeName, submitLabel = "Book a campus visit" }) {
-  const [sent, setSent] = useState(false);
+  const { sent, submitting, error, handleSubmit } = useWeb3Forms({
+    subject: programmeName
+      ? `Campus visit request — ${programmeName}`
+      : "Campus visit request",
+  });
 
   if (sent) {
     return (
@@ -36,11 +40,9 @@ export function VisitForm({ programmeName, submitLabel = "Book a campus visit" }
   return (
     <form
       className="grid gap-4 rounded-[--radius-frame] border border-border bg-card p-6 shadow-soft sm:grid-cols-2"
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSent(true);
-      }}
+      onSubmit={handleSubmit}
     >
+      <Honeypot />
       <Field label="Parent name" name="name" placeholder="Your full name" />
       <Field label="Phone" name="phone" type="tel" placeholder="+91" />
       <Field label="Child's age" name="age" placeholder="e.g. 2 years 4 months" />
@@ -59,11 +61,13 @@ export function VisitForm({ programmeName, submitLabel = "Book a campus visit" }
         </select>
       </div>
       {programmeName && <input type="hidden" name="programme" value={programmeName} />}
+      <FormStatus error={error} className="sm:col-span-2" />
       <button
         type="submit"
-        className="sm:col-span-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5"
+        disabled={submitting}
+        className="sm:col-span-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {submitLabel}
+        {submitting ? "Sending…" : submitLabel}
       </button>
     </form>
   );
