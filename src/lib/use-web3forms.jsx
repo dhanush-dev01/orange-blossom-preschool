@@ -33,13 +33,16 @@ export function useWeb3Forms({ subject, fromName = "Orange Play School website" 
         });
         const result = await response.json().catch(() => null);
 
+        console.log("Web3Forms response status:", response.status, result);
+
         if (!response.ok || !result?.success) {
           throw new Error(result?.message || GENERIC_ERROR);
         }
 
         form.reset();
         setSent(true);
-      } catch {
+      } catch (err) {
+        console.error("Web3Forms submission failed:", err);
         setError(GENERIC_ERROR);
       } finally {
         setSubmitting(false);
